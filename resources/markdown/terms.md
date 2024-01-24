@@ -1,3 +1,3 @@
-# Terms of Service
+# Условия предоставления услуг
 
-Edit this file to define the terms of service for your application.
+Отредактируйте этот файл, чтобы определить условия предоставления услуг для вашего приложения.
