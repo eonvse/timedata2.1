@@ -1,4 +1,7 @@
 # Система учета событий v2.x
+
+<img src='README.img/screen 1.png' />
+
 ## Развертывание:
 ```cmd
 docker context use default
