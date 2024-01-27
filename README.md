@@ -1,15 +1,15 @@
 # Система учета событий v2.x
 ## Развертывание:
 ```cmd
-	docker context use default
-   	curl -s https://laravel.build/timedata2.1 | bash
-   	cd timedata2.1
-    alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
-    sail up
-    sail shell
-    php artisan jetstream:install livewire --dark
-    npm run build
-    php artisan migrate
+docker context use default
+curl -s https://laravel.build/timedata2.1 | bash
+cd timedata2.1
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+sail up
+sail shell
+php artisan jetstream:install livewire --dark
+npm run build
+php artisan migrate
 ```   	
 
 * [Laravel 10](https://laravel.com/docs/10.x)
