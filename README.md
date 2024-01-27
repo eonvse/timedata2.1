@@ -13,8 +13,8 @@
 ```   	
 
 * [Laravel 10](https://laravel.com/docs/10.x)
-    * [Laravel Sail (Docker)][https://laravel.com/docs/10.x/sail#main-content]
-    * [Laravel Jetstream ][https://jetstream.laravel.com/introduction.html]
+    * [Laravel Sail (Docker)](https://laravel.com/docs/10.x/sail#main-content)
+    * [Laravel Jetstream](https://jetstream.laravel.com/introduction.html)
 
 ## Авторские права:
 * Фреймворки
