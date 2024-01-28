@@ -9,16 +9,20 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    @can('manage tasks')
                     <x-link.create href="{{ route('tasks.create') }}" class="m-4">{{ __('Add new task') }}</x-link.create>
+                    @endcan
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
                                 {{ __('Task name') }}
                             </th>
+                            @can('manage tasks')
                             <th scope="col" class="px-6 py-3">
  
                             </th>
+                            @endcan
                         </tr>
                         </thead>
                         <tbody>
@@ -27,6 +31,7 @@
                                 <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                     {{ $task->name }}
                                 </td>
+                                @can('manage tasks')
                                 <td class="flex px-6 py-4">
                                     <x-link.icon-edit href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}" />
                                     <form method="POST" action="{{ route('tasks.destroy', $task) }}" class="inline-block">
@@ -36,6 +41,7 @@
                                     </form>
                                 
                                 </td>
+                                @endcan
                             </tr>
                         @empty
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
