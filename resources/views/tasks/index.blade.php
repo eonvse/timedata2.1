@@ -32,7 +32,7 @@
                                 <x-table.cell>
                                     <div class="flex items-center">
                                     <x-link.icon-edit href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}" />
-                                    <form method="POST" action="{{ route('tasks.destroy', $task) }}">
+                                    <form method="POST" action="{{ route('tasks.destroy', $task) }}" class=" flex items-center">
                                         @csrf
                                         @method('DELETE')
                                         <x-button.icon-del type="submit" onclick="return confirm('Are you sure?')" title="{{ __('Delete') }}" />
@@ -44,8 +44,7 @@
                             </x-table.row>
                         @empty
                             <x-table.row>
-                                <x-table.cell>
-                                    class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                <x-table.cell class="text-center" colspan="2">
                                     {{ __('No tasks found') }}
                                 </x-table.cell>
                             </x-table.row>
