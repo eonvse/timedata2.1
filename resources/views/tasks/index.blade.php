@@ -12,47 +12,45 @@
                     @can('manage tasks')
                     <x-link.create href="{{ route('tasks.create') }}" class="m-4">{{ __('Add new task') }}</x-link.create>
                     @endcan
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
+                    <x-table>
+                        <x-slot name="header">
+                            <x-table.head>
                                 {{ __('Task name') }}
-                            </th>
+                            </x-table.head>
                             @can('manage tasks')
-                            <th scope="col" class="px-6 py-3">
+                            <x-table.head>
  
-                            </th>
+                            </x-table.head>
                             @endcan
-                        </tr>
-                        </thead>
-                        <tbody>
+                        </x-slot>
                         @forelse ($tasks as $task)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                            <x-table.row>
+                                <x-table.cell>
                                     {{ $task->name }}
-                                </td>
+                                </x-table.cell>
                                 @can('manage tasks')
-                                <td class="flex px-6 py-4">
+                                <x-table.cell>
+                                    <div class="flex items-center">
                                     <x-link.icon-edit href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}" />
-                                    <form method="POST" action="{{ route('tasks.destroy', $task) }}" class="inline-block">
+                                    <form method="POST" action="{{ route('tasks.destroy', $task) }}">
                                         @csrf
                                         @method('DELETE')
                                         <x-button.icon-del type="submit" onclick="return confirm('Are you sure?')" title="{{ __('Delete') }}" />
                                     </form>
+                                    </div>
                                 
-                                </td>
+                                </x-table.cell>
                                 @endcan
-                            </tr>
+                            </x-table.row>
                         @empty
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <td colspan="2"
+                            <x-table.row>
+                                <x-table.cell>
                                     class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                     {{ __('No tasks found') }}
-                                </td>
-                            </tr>
+                                </x-table.cell>
+                            </x-table.row>
                         @endforelse
-                        </tbody>
-                    </table>
+                    </x-table>
                 </div>
             </div>
         </div>
