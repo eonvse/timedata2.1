@@ -5,12 +5,12 @@
         </h2>
     </x-slot>
  
-    <div class="py-12">
+    <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     @can('manage tasks')
-                    <x-link.create href="{{ route('tasks.create') }}" class="m-4">{{ __('Add new task') }}</x-link.create>
+                    <livewire:tasks.create />
                     @endcan
                     <x-table>
                         <x-slot name="header">
