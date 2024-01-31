@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->uuidMorphs('element');
             $table->unsignedBigInteger('autor_id');
-            $table->unsignedBigInteger('team_id');
+            $table->unsignedBigInteger('team_id')->default(0);
             $table->unsignedBigInteger('color_id')->default(0);
-            $table->date('day')->useCurrent();
-            $table->time('start')->useCurrent();
-            $table->time('end')->useCurrent();
+            $table->date('day')->nullable();
+            $table->time('start')->nullable();
+            $table->time('end')->nullable();
             $table->text('content')->nullable();
+            $table->boolean('isDone')->default(0);
+            $table->dateTime('dateDone')->nullable();
     });
     }
 };
