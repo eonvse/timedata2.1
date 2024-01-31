@@ -13,7 +13,7 @@
  
                     <form method="POST" action="{{ route('tasks.store') }}">
                         @csrf
- 
+                        <input type="hidden" id="autor_id" name="autor_id" value="{{ $id = Auth::id() }}" />
                         <div>
                             <x-label for="name" value="{{ __('Task name') }}" />
                             <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />

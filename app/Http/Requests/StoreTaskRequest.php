@@ -23,6 +23,7 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'autor_id' => 'required',
         ];
     }
 }
