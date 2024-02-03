@@ -9,12 +9,11 @@
 
                 <x-validation-errors class="mb-4" />
  
-                <form method="POST" action="{{ route('tasks.store') }}">
-                    @csrf
-                    <input type="hidden" id="autor_id" name="autor_id" value="{{ $id = Auth::id() }}" />
+                <form wire:submit="save">
                     <div>
                         <x-label for="name" value="{{ __('Task name') }}" />
-                        <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                        <x-input id="name" class="block mt-1 w-full" type="text" name="name" wire:model="name" required autofocus autocomplete="name" />
+                        @error('name') <span class="error">{{ $message }}</span> @enderror 
                     </div>
                     <div class="flex mt-4">
                         <x-button.create>
