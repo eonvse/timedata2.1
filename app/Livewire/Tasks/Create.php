@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Tasks;
 
-use Livewire\Attributes\Validate; 
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 use Illuminate\Support\Facades\Auth;
@@ -23,21 +23,21 @@ class Create extends Component
 
     public $day;
 
-    
+
     public $start, $end;
 
-    
+
     public $content;
 
-    
+
     public $isDone;
 
-    
+
     public $dateDone;
 
-    
 
-    
+
+
     public function mount()
     {
         $this->sidebar = false;
@@ -52,21 +52,23 @@ class Create extends Component
     public function closeSidebar()
     {
         $this->sidebar=false;
-        $this->reset(); 
+        $this->reset(['name']);
     }
 
     public function save()
     {
-        $this->validate(); 
+        $this->validate();
 
         Task::create(
             $this->only(['name', 'autor_id'])
             //$this->all()
         );
 
-        $this->reset(); 
- 
-        return $this->redirect('/tasks'); //добавить Jetstream компонент banner
+        $message = "Добавлена новая задача: " . $this->name;
+        session()->flash('flash.banner', $message);
+        session()->flash('flash.bannerStyle', 'success');
+
+        return redirect('/tasks');
     }
 
     public function render()
