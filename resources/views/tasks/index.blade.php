@@ -38,6 +38,7 @@
                                         @method('DELETE')
                                         <x-button.icon-del type="submit" onclick="return confirm('Are you sure?')" title="{{ __('Delete') }}" />
                                     </form>
+                                    <livewire:tasks.delete />
                                     </div>
 
                                 </x-table.cell>
