@@ -4,11 +4,11 @@
             {{ __('Tasks list') }}
         </h2>
     </x-slot>
- 
+
     <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-1">
                     @can('manage tasks')
                     <livewire:tasks.create />
                     @endcan
@@ -19,14 +19,15 @@
                             </x-table.head>
                             @can('manage tasks')
                             <x-table.head>
- 
+
                             </x-table.head>
                             @endcan
                         </x-slot>
                         @forelse ($tasks as $task)
                             <x-table.row>
-                                <x-table.cell>
-                                    {{ $task->name }}
+                                <x-table.cell class="flex items-center">
+                                    <div class="w-4 mx-1 {{ $task->color->base ?? '' }} dark:{{ $task->color->dark ?? '' }}">&nbsp;</div>
+                                    <div>{{ $task->name }}</div>
                                 </x-table.cell>
                                 @can('manage tasks')
                                 <x-table.cell>
@@ -38,7 +39,7 @@
                                         <x-button.icon-del type="submit" onclick="return confirm('Are you sure?')" title="{{ __('Delete') }}" />
                                     </form>
                                     </div>
-                                
+
                                 </x-table.cell>
                                 @endcan
                             </x-table.row>
@@ -50,6 +51,7 @@
                             </x-table.row>
                         @endforelse
                     </x-table>
+                    <div class="m-2">{{ $tasks->links() }}</div>
                 </div>
             </div>
         </div>

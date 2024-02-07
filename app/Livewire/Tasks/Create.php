@@ -8,13 +8,14 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Task;
+use App\Models\Color;
 
 
 class Create extends Component
 {
     public $sidebar;
 
-    #[Validate('required|min:3', message: 'Не может быть пустым')]
+    #[Validate('required|min:3')]
     public $name;
 
     public $autor_id;
@@ -42,6 +43,8 @@ class Create extends Component
     {
         $this->sidebar = false;
         $this->autor_id = Auth::id();
+        $this->color_id = 1;
+        $this->team_id = $this->isDone = 0;
     }
 
     public function showSidebar()
@@ -52,16 +55,18 @@ class Create extends Component
     public function closeSidebar()
     {
         $this->sidebar=false;
-        $this->reset(['name']);
+        $this->reset(['name','color_id']);
     }
 
     public function save()
     {
+        $this->authorize('manage tasks');
+
         $this->validate();
 
         Task::create(
-            $this->only(['name', 'autor_id'])
-            //$this->all()
+            //$this->only(['name', 'autor_id','color_id'])
+            $this->all()
         );
 
         $message = "Добавлена новая задача: " . $this->name;
@@ -73,6 +78,6 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.tasks.create');
+        return view('livewire.tasks.create',['colors'=>Color::orderBy('base')->get()->toArray()]);
     }
 }
