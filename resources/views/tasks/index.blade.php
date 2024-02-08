@@ -33,12 +33,7 @@
                                 <x-table.cell>
                                     <div class="flex items-center">
                                     <x-link.icon-edit href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}" />
-                                    <form method="POST" action="{{ route('tasks.destroy', $task) }}" class=" flex items-center">
-                                        @csrf
-                                        @method('DELETE')
-                                        <x-button.icon-del type="submit" onclick="return confirm('Are you sure?')" title="{{ __('Delete') }}" />
-                                    </form>
-                                    <livewire:tasks.delete />
+                                    <livewire:tasks.delete :$task />
                                     </div>
 
                                 </x-table.cell>

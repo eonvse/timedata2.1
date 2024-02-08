@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 
@@ -33,12 +32,4 @@ class TaskController extends Controller
         return redirect()->route('tasks.index');
     }
 
-    public function destroy(Task $task)
-    {
-        $this->authorize('manage tasks');
-
-        $task->delete();
-
-        return redirect()->route('tasks.index');
-    }
 }

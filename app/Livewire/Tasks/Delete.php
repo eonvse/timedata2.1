@@ -12,19 +12,43 @@ class Delete extends Component
     public $modal;
     public $task;
 
-    private $types = array(     'icon',
-                                'button'
-                            );
+    private $types = array(
+                            'icon',
+                            'button'
+                        );
 
-    public function mount()
+    public function mount(Task $task)
     {
         $this->modal = false;
         $this->type = $this->types[0];
+        $this->task = $task;
+    }
+
+    public function showModal()
+    {
+        $this->modal = true;
+    }
+
+    public function closeModal()
+    {
+        $this->modal = false;
+    }
+
+    public function destroy()
+    {
+        $this->task->delete();
+        $this->modal = false;
+
+        $message = "Удалена задача: " . $this->task->name;
+        session()->flash('flash.banner', $message);
+        session()->flash('flash.bannerStyle', 'danger');
+
+        return redirect('/tasks');
+
     }
 
     public function render()
     {
-        //return view('livewire.tasks.delete-icon',['debug'=>var_export($this->types)]);
         switch($this->type)
         {
             case 'icon':
