@@ -1,4 +1,4 @@
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 py-4">
+<div class="p-2">
     <x-button.create wire:click="showSidebar">{{ __('Add new task') }}</x-button.create>
     <x-sidebar wire:model="sidebar">
         <div class="w-full p-5 text-center shadow font-semibold text-xl">
