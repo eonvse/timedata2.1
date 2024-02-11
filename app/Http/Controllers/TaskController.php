@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
+use App\DB\Tasks;
 
 class TaskController extends Controller
 {
@@ -11,7 +12,7 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = Task::orderBy('created_at','desc')->paginate(self::PER_PAGE);
+        $tasks = Tasks::list($paginate=Self::PER_PAGE);
 
         return view('tasks.index', compact('tasks'));
     }

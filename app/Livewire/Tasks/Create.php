@@ -22,21 +22,14 @@ class Create extends Component
     public $team_id;
     public $color_id;
 
+    #[Validate('nullable|date')]
     public $day;
 
-
+    #[Validate('nullable')]
     public $start, $end;
 
-
+    #[Validate('nullable|min:10')]
     public $content;
-
-
-    public $isDone;
-
-
-    public $dateDone;
-
-
 
 
     public function mount()
@@ -44,7 +37,7 @@ class Create extends Component
         $this->sidebar = false;
         $this->autor_id = Auth::id();
         $this->color_id = 1;
-        $this->team_id = $this->isDone = 0;
+        $this->team_id = 0;
     }
 
     public function showSidebar()

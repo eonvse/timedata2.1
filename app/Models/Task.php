@@ -23,19 +23,24 @@ class Task extends Model
 
     public function getCreatedAttribute() {
 
-        return date('d.m.Y h:i', strtotime($this->created_at));
+        return date('d.m.Y H:i', strtotime($this->created_at));
 
     }
 
     public function getUpdatedAttribute() {
 
-        return date('d.m.Y h:i', strtotime($this->updated_at));
+        return date('d.m.Y H:i', strtotime($this->updated_at));
 
     }
 
     public function color()
     {
         return $this->hasOne(Color::class,'id','color_id');
+    }
+
+    public function autor()
+    {
+        return $this->hasOne(User::class,'id','autor_id');
     }
 
 }

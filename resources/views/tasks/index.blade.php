@@ -17,6 +17,8 @@
                             <x-table.head>
                                 {{ __('Task name') }}
                             </x-table.head>
+                            <x-table.head>{{ __('Created_at') }}</x-table.head>
+                            <x-table.head>{{ __('Autor') }}</x-table.head>
                             @can('manage tasks')
                             <x-table.head>
 
@@ -27,8 +29,10 @@
                             <x-table.row>
                                 <x-table.cell class="flex items-center">
                                     <div class="w-4 mx-1 {{ $task->color->base ?? '' }} dark:{{ $task->color->dark ?? '' }}">&nbsp;</div>
-                                    <div>{{ $task->name }}</div>
+                                    <div><x-link.table-cell href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}">{{ $task->name }}</x-link.table-cell></div>
                                 </x-table.cell>
+                                <x-table.cell>{{ $task->created }}</x-table.cell>
+                                <x-table.cell>{{ $task->autor->name }}</x-table.cell>
                                 @can('manage tasks')
                                 <x-table.cell>
                                     <div class="flex items-center">

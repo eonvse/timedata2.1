@@ -7,9 +7,9 @@
 
     <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="{{ $task->color->base }} dark:{{ $task->color->dark }}overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 py-4 ">
-                    <div class="sm:grid sm:grid-cols-6 p-2 bg-neutral-200 ">
+            <div class="overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="bg-white relative overflow-x-auto shadow-md sm:rounded-lg px-4 py-4 border-2 {{ str_replace('bg','border', $task->color->base) }}">
+                    <div class="sm:grid sm:grid-cols-6 p-2 bg-neutral-200">
                         <div class="col-span-2">name {{ $task->name }}</div>
                         <div class="p-1 border border-black">autor_id {{ $task->autor_id }}</div>
                         <div class="p-1 border border-black">team_id {{ $task->team_id }}</div>
@@ -25,7 +25,7 @@
 
                     </div>
                     <div class="bg-white sm:grid sm:grid-cols-3">
-                        <div class="row-span-2 border p-2">content {{ $task->content }}</div>
+                        <div class="row-span-2 border p-2 bg-neutral-200">content {!! $task->content !!}</div>
                         <div class="min-h-40 border p-2">Заметки + livewire button</div>
                         <div class="min-h-40 border p-2">Events</div>
                         <div class="min-h-40 border p-2">Файлы + livewire button</div>
