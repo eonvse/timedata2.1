@@ -17,11 +17,11 @@ class TaskController extends Controller
         return view('tasks.index', compact('tasks'));
     }
 
-    public function edit(Task $task)
+    public function edit(Task $task, bool $editable=false)
     {
         $this->authorize('manage tasks');
 
-        return view('tasks.edit', compact('task'));
+        return view('tasks.edit', ['task' => $task, 'editable'=>$editable]);
     }
 
     public function update(UpdateTaskRequest $request, Task $task)

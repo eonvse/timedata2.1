@@ -28,5 +28,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::resource('tasks', \App\Http\Controllers\TaskController::class);
+    Route::get('/tasks',[\App\Http\Controllers\TaskController::class,'index'])->name('tasks.index');
+    Route::get('/tasks/{task}/{editable?}', [\App\Http\Controllers\TaskController::class,'edit'])->name('tasks.edit');
 });

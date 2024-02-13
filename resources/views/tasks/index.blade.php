@@ -36,7 +36,7 @@
                                 @can('manage tasks')
                                 <x-table.cell>
                                     <div class="flex items-center">
-                                    <x-link.icon-edit href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}" />
+                                    <x-link.icon-edit href="{{ route('tasks.edit', ['task'=>$task, 'editable'=>1]) }}" title="{{ __('Edit') }}" />
                                     <livewire:tasks.delete :$task />
                                     </div>
 
