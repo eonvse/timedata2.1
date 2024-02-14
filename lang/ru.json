@@ -65,6 +65,8 @@
     "Task delete":"Удалить задачу",
     "Edit Task":"Редактировать",
     "Task content":"Содержание задачи",
+    "Task isDone":"Отметка",
+    "Task dateDone":"Дата выполнения",
     "Add System": "Добавить систему",
     "Guide": "Справочники",
     "System": "Системы",
