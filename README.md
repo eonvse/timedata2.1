@@ -17,15 +17,12 @@ php artisan migrate
 * [Laravel 10](https://laravel.com/docs/10.x)
     * [Laravel Sail (Docker)](https://laravel.com/docs/10.x/sail#main-content)
     * [Laravel Jetstream](https://jetstream.laravel.com/introduction.html)
+    * [Laravel Jetstream: Add CRUD with Spatie Permission](https://laravel-news.com/jetstream-spatie-permission)
 
 ## Сопровождение
 
 * Re-authenticate with GitHub. 
 ```gh auth login```
-
-
-
-* [Laravel Jetstream: Add CRUD with Spatie Permission](https://laravel-news.com/jetstream-spatie-permission)
 
 ## Авторские права:
 * Фреймворки
