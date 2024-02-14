@@ -11,7 +11,7 @@
                 <div class="bg-white relative overflow-x-auto shadow-md sm:rounded-lg px-4 py-4 border-2 {{ str_replace('bg','border', $task->color->base) }}">
                     <livewire:tasks.edit :$task :$editable />
                     <div class="bg-white sm:grid sm:grid-cols-3">
-                        <div class="row-span-2 border p-2 bg-neutral-200">content {!! $task->content !!}</div>
+                        <div class="row-span-2 border p-2 bg-neutral-200">content {!! empty($task->content) ? __('empty') : $task->content !!}</div>
                         <div class="min-h-40 border p-2">Заметки + livewire button</div>
                         <div class="min-h-40 border p-2">Events</div>
                         <div class="min-h-40 border p-2">Файлы + livewire button</div>
