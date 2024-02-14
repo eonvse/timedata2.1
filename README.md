@@ -22,7 +22,9 @@ php artisan migrate
 ## Сопровождение
 
 * Re-authenticate with GitHub. 
-```gh auth login```
+```
+gh auth login
+```
 
 ## Авторские права:
 * Фреймворки
