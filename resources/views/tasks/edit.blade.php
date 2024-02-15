@@ -4,32 +4,25 @@
             {{ __('Edit Task') }}
         </h2>
     </x-slot>
- 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 py-4">
-                    <x-validation-errors class="mb-4" />
- 
-                    <form method="POST" action="{{ route('tasks.update', $task) }}">
-                        @csrf
-                        @method('PUT')
 
-                        <div>
-                            <x-label for="name" value="{{ __('Task name') }}" />
-                            <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$task->name" required autofocus autocomplete="name" />
+    <div class="py-3">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="bg-white relative overflow-x-auto shadow-md sm:rounded-lg px-4 py-4 border-2 {{ str_replace('bg','border', $task->color->base) }}">
+                    <livewire:tasks.edit :$task :$editable />
+                    <div class="bg-white sm:grid sm:grid-cols-3">
+                        <div class="row-span-2 border p-2 bg-neutral-200">content {!! empty($task->content) ? __('empty') : $task->content !!}</div>
+                        <div class="min-h-40 border p-2">Заметки + livewire button</div>
+                        <div class="min-h-40 border p-2">Events</div>
+                        <div class="min-h-40 border p-2">Файлы + livewire button</div>
+                        <div class="min-h-40 border p-2">
+                            <p>Статистика (на подумать)...</p>
+                            <p>Процесс выполнения ???</p>
                         </div>
- 
-                        <div class="flex mt-4">
-                            <x-button.create>
-                                {{ __('Save Task') }}
-                            </x-button.create>
-                            <x-button.secondary onclick="window.location='{{ route('tasks.index') }}'">
-                                {{ __('Cancel') }}
-                            </x-button.secondary>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
+

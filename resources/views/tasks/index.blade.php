@@ -4,55 +4,54 @@
             {{ __('Tasks list') }}
         </h2>
     </x-slot>
- 
-    <div class="py-12">
+
+    <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-1">
                     @can('manage tasks')
-                    <x-link.create href="{{ route('tasks.create') }}" class="m-4">{{ __('Add new task') }}</x-link.create>
+                    <livewire:tasks.create />
                     @endcan
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
+                    <x-table>
+                        <x-slot name="header">
+                            <x-table.head>
                                 {{ __('Task name') }}
-                            </th>
+                            </x-table.head>
+                            <x-table.head>{{ __('Created_at') }}</x-table.head>
+                            <x-table.head>{{ __('Autor') }}</x-table.head>
                             @can('manage tasks')
-                            <th scope="col" class="px-6 py-3">
- 
-                            </th>
+                            <x-table.head>
+
+                            </x-table.head>
                             @endcan
-                        </tr>
-                        </thead>
-                        <tbody>
+                        </x-slot>
                         @forelse ($tasks as $task)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                    {{ $task->name }}
-                                </td>
+                            <x-table.row>
+                                <x-table.cell class="flex items-center">
+                                    <div class="w-4 mx-1 {{ $task->color->base ?? '' }} dark:{{ $task->color->dark ?? '' }}">&nbsp;</div>
+                                    <div><x-link.table-cell href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}">{{ $task->name }}</x-link.table-cell></div>
+                                </x-table.cell>
+                                <x-table.cell>{{ $task->created }}</x-table.cell>
+                                <x-table.cell>{{ $task->autor->name }}</x-table.cell>
                                 @can('manage tasks')
-                                <td class="flex px-6 py-4">
-                                    <x-link.icon-edit href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}" />
-                                    <form method="POST" action="{{ route('tasks.destroy', $task) }}" class="inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <x-button.icon-del type="submit" onclick="return confirm('Are you sure?')" title="{{ __('Delete') }}" />
-                                    </form>
-                                
-                                </td>
+                                <x-table.cell>
+                                    <div class="flex items-center">
+                                    <x-link.icon-edit href="{{ route('tasks.edit', ['task'=>$task, 'editable'=>1]) }}" title="{{ __('Edit') }}" />
+                                    <livewire:tasks.delete :$task />
+                                    </div>
+
+                                </x-table.cell>
                                 @endcan
-                            </tr>
+                            </x-table.row>
                         @empty
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <td colspan="2"
-                                    class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                            <x-table.row>
+                                <x-table.cell class="text-center" colspan="2">
                                     {{ __('No tasks found') }}
-                                </td>
-                            </tr>
+                                </x-table.cell>
+                            </x-table.row>
                         @endforelse
-                        </tbody>
-                    </table>
+                    </x-table>
+                    <div class="m-2">{{ $tasks->links() }}</div>
                 </div>
             </div>
         </div>

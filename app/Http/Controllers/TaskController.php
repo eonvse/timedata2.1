@@ -2,58 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
+use App\DB\Tasks;
 
 class TaskController extends Controller
 {
+    const PER_PAGE=20; //записей на страницу
 
     public function index()
     {
-        $tasks = Task::all();
- 
+        $tasks = Tasks::list($paginate=Self::PER_PAGE);
+
         return view('tasks.index', compact('tasks'));
     }
- 
-    public function create()
+
+    public function edit(Task $task, bool $editable=false)
     {
         $this->authorize('manage tasks');
-        
-        return view('tasks.create');
+
+        return view('tasks.edit', ['task' => $task, 'editable'=>$editable]);
     }
- 
-    public function store(StoreTaskRequest $request)
-    {
-        $this->authorize('manage tasks');
-        
-        Task::create($request->validated());
- 
-        return redirect()->route('tasks.index');
-    }
- 
-    public function edit(Task $task)
-    {
-        $this->authorize('manage tasks');
-        
-        return view('tasks.edit', compact('task'));
-    }
- 
+
     public function update(UpdateTaskRequest $request, Task $task)
     {
         $this->authorize('manage tasks');
-        
+
         $task->update($request->validated());
- 
+
         return redirect()->route('tasks.index');
     }
- 
-    public function destroy(Task $task)
-    {
-        $this->authorize('manage tasks');
-        
-        $task->delete();
- 
-        return redirect()->route('tasks.index');
-    }
+
 }

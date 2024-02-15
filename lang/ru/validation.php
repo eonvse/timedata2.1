@@ -183,7 +183,8 @@ return [
     'attributes' => [
         'password'=>'Пароль',
         'current_password'=>'Текущий пароль',
-        
+        'content'=>'Содержание',
+
     ],
 
 ];
