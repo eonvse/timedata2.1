@@ -48,7 +48,7 @@ class Create extends Component
     public function closeSidebar()
     {
         $this->sidebar=false;
-        $this->reset(['name','color_id']);
+        $this->reset();
     }
 
     public function save()

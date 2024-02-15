@@ -34,8 +34,7 @@
                     </div>
                     <div class="my-1 sm:grid sm:grid-cols-[100px_minmax(0,_1fr)] items-center">
                         <x-input.label>Дата</x-input.label>
-                        <x-input.text type="date" wire:model.blur="day" />
-                        @error('day') <x-error class="col-span-2">{{ $message }}</x-error> @enderror
+                        <x-input.text type="date" min="1970-01-01" max="2124-12-31" wire:model.blur="day" />
                     </div>
                     <div class="my-1 sm:grid sm:grid-cols-[100px_minmax(0,_1fr)] items-center">
                         <x-input.label>Начало</x-input.label>

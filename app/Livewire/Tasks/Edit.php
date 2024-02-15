@@ -5,10 +5,12 @@ namespace App\Livewire\Tasks;
 use Livewire\Component;
 // use Livewire\Attributes\Validate; ???? Правила на элемент массива ????
 
-use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Task;
 use App\Models\Color;
+use App\DB\Tasks;
 
 class Edit extends Component
 {
@@ -47,6 +49,53 @@ class Edit extends Component
     {
         $this->resetData();
         $this->editable = false;
+    }
+
+    public function clearField($field)
+    {
+        $this->data[$field]='';
+    }
+
+    public function store()
+    {
+
+        $validated = Validator::make(
+            //Data
+            [
+                'name'=>$this->data['name'],
+                'team_id'=>$this->data['team_id'],
+                'color_id'=>$this->data['color_id'],
+                'day'=>$this->data['day'],
+                'start'=>$this->data['start'],
+                'end'=>$this->data['end'],
+                'content'=>$this->data['content'],
+                'isDone'=>$this->data['isDone'],
+                'dateDone'=>$this->data['dateDone']
+            ],
+
+            //Rules
+            [
+                'name'=>'required|min:3',
+                'team_id'=>'decimal:0',
+                'color_id'=>'decimal:0',
+                'day'=>'nullable|date',
+                'start'=>'nullable',
+                'end'=>'nullable',
+                'content'=>'nullable',
+                'isDone'=>'nullable',
+                'dateDone'=>'nullable|date',
+            ]
+
+        )->validate();
+
+        $this->task->update($validated);
+
+        $message = "Задача " . $this->data['name'] . " сохранена";
+        session()->flash('flash.banner', $message);
+        session()->flash('flash.bannerStyle', 'success');
+
+        $this->redirectRoute('tasks.edit', ['task'=>$this->task]);
+
     }
 
     public function render()

@@ -1,5 +1,5 @@
 <div class="flex">
-    <x-button.icon-del title="{{ __('Delete') }}" wire:click="showModal" />
+    <x-button.icon-del type="button" title="{{ __('Delete') }}" wire:click="showModal" />
     <x-modal-wire.dialog wire:model="modal" maxWidth="md" type="warn">
         <x-slot name="title">
             <span class="grow">{{ __('Task delete') }}</span>

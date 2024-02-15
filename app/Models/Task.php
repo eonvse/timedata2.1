@@ -21,15 +21,45 @@ class Task extends Model
                             'dateDone',];
     protected $primaryKey = 'id';
 
-    public function getCreatedAttribute() {
+    public function getCreatedAttribute()
+    {
 
         return date('d.m.Y H:i', strtotime($this->created_at));
 
     }
 
-    public function getUpdatedAttribute() {
+    public function getUpdatedAttribute()
+    {
 
         return date('d.m.Y H:i', strtotime($this->updated_at));
+
+    }
+
+    public function setDayAttribute($day)
+    {
+
+        $this->attributes['day'] = $day ?: null;
+
+    }
+
+    public function setStartAttribute($start)
+    {
+
+       $this->attributes['start'] = $start ?: null;
+
+    }
+
+    public function setEndAttribute($end)
+    {
+
+        $this->attributes['end'] = $end ?: null;
+
+    }
+
+    public function setContentAttribute($content)
+    {
+
+         $this->attributes['content'] = $content ?: null;
 
     }
 
