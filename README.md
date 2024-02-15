@@ -4,13 +4,11 @@
 
 ## Развертывание:
 ```cmd
-docker context use default
-curl -s https://laravel.build/timedata2.1 | bash
+git clone https://github.com/eonvse/timedata2.1.git
 cd timedata2.1
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 sail up
 sail shell
-php artisan jetstream:install livewire --dark
 npm run build
 php artisan migrate
 ```   	
