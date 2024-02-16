@@ -22,4 +22,19 @@ class Tasks
 
     }
 
+    public static function get($id)
+    {
+        return Task::find($id);
+    }
+
+    public static function getFieldValue($id, $field)
+    {
+        return Task::where('id','=',$id)->pluck($field)->toArray()[0];
+    }
+
+    public static function setFieldValue($id, $field,$value) : void
+    {
+        Task::where('id','=',$id)->update([$field=>$value]);
+    }
+
 }

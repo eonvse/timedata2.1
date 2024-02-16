@@ -59,7 +59,7 @@ class Task extends Model
     public function setContentAttribute($content)
     {
 
-         $this->attributes['content'] = $content ?: null;
+         $this->attributes['content'] = trim($content) ?: null;
 
     }
 
