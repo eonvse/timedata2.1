@@ -17,11 +17,13 @@ class Edit extends Component
     public $task;
     public $editable;
     public $data;
+    public $delete;
 
     public function mount(Task $task, bool $editable=false)
     {
         $this->task = $task;
         $this->editable = $editable;
+        $this->delete = false;
         $this->resetData();
     }
 
@@ -97,6 +99,29 @@ class Edit extends Component
         $this->redirectRoute('tasks.edit', ['task'=>$this->task]);
 
     }
+
+    public function showDelete()
+    {
+        $this->delete = true;
+    }
+
+    public function closeDelete()
+    {
+        $this->delete = false;
+    }
+
+    public function destroy()
+    {
+        $this->task->delete();
+        $this->delete = false;
+
+        $message = "Удалена задача: " . $this->task->name;
+        session()->flash('flash.banner', $message);
+        session()->flash('flash.bannerStyle', 'danger');
+
+        $this->redirect('/tasks');
+    }
+
 
     public function render()
     {

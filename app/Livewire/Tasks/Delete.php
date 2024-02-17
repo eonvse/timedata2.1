@@ -43,8 +43,7 @@ class Delete extends Component
         session()->flash('flash.banner', $message);
         session()->flash('flash.bannerStyle', 'danger');
 
-        return redirect('/tasks');
-
+        $this->redirect('/tasks');
     }
 
     public function render()
