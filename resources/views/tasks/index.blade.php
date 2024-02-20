@@ -17,7 +17,12 @@
                             <x-table.head>
                                 {{ __('Task name') }}
                             </x-table.head>
-                            <x-table.head>{{ __('Created_at') }}</x-table.head>
+                            <x-table.head class="text-center">
+                                {{ __('Event Day') }}
+                                <div class="flex justify-center"><livewire:sortable-link list="tasks" field="day" /></div>
+                            </x-table.head>
+                            <x-table.head class="text-center">{{ __('Task time') }}</x-table.head>
+                            <x-table.head class="text-center">{{ __('Created_at') }}</x-table.head>
                             <x-table.head>{{ __('Autor') }}</x-table.head>
                             @can('manage tasks')
                             <x-table.head>
@@ -27,11 +32,20 @@
                         </x-slot>
                         @forelse ($tasks as $task)
                             <x-table.row>
-                                <x-table.cell class="flex items-center">
-                                    <div class="w-4 mx-1 {{ $task->color->base ?? '' }} dark:{{ $task->color->dark ?? '' }}">&nbsp;</div>
-                                    <div><x-link.table-cell href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}">{{ $task->name }}</x-link.table-cell></div>
+                                <x-table.cell>
+                                    <div class="flex items-center">
+                                        <div class="w-4 mx-1 {{ $task->color->base ?? '' }} dark:{{ $task->color->dark ?? '' }}">&nbsp;</div>
+                                        <div><x-link.table-cell href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}">{{ $task->name }}</x-link.table-cell></div>
+                                    </div>
                                 </x-table.cell>
-                                <x-table.cell>{{ $task->created }}</x-table.cell>
+                                <x-table.cell class="tabular-nums text-center">{{ $task->day_format }}</x-table.cell>
+                                <x-table.cell class="tabular-nums text-center">
+                                    <div class="grid grid-cols-2">
+                                        <div>{{ $task->start_format }}</div>
+                                        <div>{{ $task->end_format }}</div>
+                                    </div>
+                                </x-table.cell>
+                                <x-table.cell class="tabular-nums text-center">{{ $task->created }}</x-table.cell>
                                 <x-table.cell>{{ $task->autor->name }}</x-table.cell>
                                 @can('manage tasks')
                                 <x-table.cell>

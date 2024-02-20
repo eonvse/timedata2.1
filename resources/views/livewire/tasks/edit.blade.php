@@ -59,9 +59,9 @@
             <div class="p-2">{{ $task->autor->name }}</div>
         </div>
         <div class="sm:grid sm:grid-cols-6 font-medium">
-            <div class="p-2">{{ empty($task->day) ? '-' : date('d.m.Y', strtotime($task->day)) }}</div>
-            <div class="p-2">{{ empty($task->start) ? '-' : date('H:i',strtotime($task->start)) }}</div>
-            <div class="p-2">{{ empty($task->end) ? '-' : date('H:i',strtotime($task->end)) }}</div>
+            <div class="p-2">{{ empty($task->day) ? '-' : $task->day_format }}</div>
+            <div class="p-2">{{ empty($task->start) ? '-' : $task->start_format }}</div>
+            <div class="p-2">{{ empty($task->end) ? '-' : $task->end_format }}</div>
             <div class="p-2 col-span-2">{{ $task->isDone }}</div>
             <div class="p-2">{{ empty($task->dateDone) ? '-' : date('d.m.Y',strtotime($task->dateDone)) }}</div>
         </div>

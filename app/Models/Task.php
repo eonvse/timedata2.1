@@ -21,6 +21,10 @@ class Task extends Model
                             'dateDone',];
     protected $primaryKey = 'id';
 
+        //---------------------------------------------------------
+        //            GET ATTRIBUTES
+        //---------------------------------------------------------
+
     public function getCreatedAttribute()
     {
 
@@ -34,6 +38,34 @@ class Task extends Model
         return date('d.m.Y H:i', strtotime($this->updated_at));
 
     }
+
+    public function getDayFormatAttribute()
+    {
+
+        if (empty($this->day)) return $this->day;
+        else return date('d.m.Y', strtotime($this->day));
+
+    }
+
+    public function getStartFormatAttribute()
+    {
+
+        if (empty($this->start)) return $this->start;
+        else return date('H:i', strtotime($this->start));
+
+    }
+
+    public function getEndFormatAttribute()
+    {
+
+        if (empty($this->end)) return $this->end;
+        else return date('H:i', strtotime($this->end));
+
+    }
+
+        //---------------------------------------------------------
+        //              SET ATTRIBUTES
+        //---------------------------------------------------------*/
 
     public function setDayAttribute($day)
     {
@@ -62,6 +94,10 @@ class Task extends Model
          $this->attributes['content'] = trim($content) ?: null;
 
     }
+
+        //---------------------------------------------------------
+        //              ОТНОШЕНИЯ
+        //---------------------------------------------------------*/
 
     public function color()
     {

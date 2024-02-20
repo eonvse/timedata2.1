@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateTaskRequest;
+use Illuminate\Http\Request;
+
 use App\Models\Task;
 use App\DB\Tasks;
 
@@ -10,7 +11,7 @@ class TaskController extends Controller
 {
     const PER_PAGE=20; //записей на страницу
 
-    public function index()
+    public function index(Request $request)
     {
         $tasks = Tasks::list($paginate=Self::PER_PAGE);
 
@@ -22,15 +23,6 @@ class TaskController extends Controller
         $this->authorize('manage tasks');
 
         return view('tasks.edit', ['task' => $task, 'editable'=>$editable]);
-    }
-
-    public function update(UpdateTaskRequest $request, Task $task)
-    {
-        $this->authorize('manage tasks');
-
-        $task->update($request->validated());
-
-        return redirect()->route('tasks.index');
     }
 
 }
