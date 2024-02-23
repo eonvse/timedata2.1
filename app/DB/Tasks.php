@@ -12,9 +12,8 @@ use App\Models\Colors;
 
 class Tasks
 {
-    const DEFAULT_PAGINATE = 15;
 
-    public static function list($paginate=self::DEFAULT_PAGINATE, $sortField='created_at', $sortDirection='desc', $filter=null)
+    public static function list($paginate, $sortField, $sortDirection, $filter=null)
     {
         $tasks = Task::orderBy($sortField,$sortDirection)->paginate($paginate);
 

@@ -6,21 +6,30 @@ use Livewire\Component;
 
 class SortableLink extends Component
 {
+    public $text;
     public $list;
     public $field;
-    public $direction;
+    public $sortField, $sortDirection;
 
-    public function mount($list,$field,$direction=null)
+    public function mount($text,$list,$field,$sortField,$sortDirection)
     {
+        $this->text = $text;
         $this->list = $list;
         $this->field = $field;
-        $this->direction = $direction;
+        $this->sortField = $sortField;
+        $this->sortDirection = $sortDirection;
 
     }
 
     public function sort()
     {
-        $this->direction = $this->direction === 'asc' ? 'desc' : 'asc';
+        $this->sortDirection = $this->sortField === $this->field
+                            ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc'
+                            : 'asc';
+
+        $url = '/tasks?sortField='.$this->field.'&sortDirection='.$this->sortDirection;
+
+        $this->redirect($url);
     }
 
     public function render()

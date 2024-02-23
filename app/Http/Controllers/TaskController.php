@@ -13,9 +13,11 @@ class TaskController extends Controller
 
     public function index(Request $request)
     {
-        $tasks = Tasks::list($paginate=Self::PER_PAGE);
+        $sortField = $request->sortField ?? 'created_at';
+        $sortDirection = $request->sortDirection ?? 'desc';
+        $tasks = Tasks::list(Self::PER_PAGE, $sortField,$sortDirection);
 
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index', ['tasks'=>$tasks,'sortField'=>$sortField, 'sortDirection'=>$sortDirection]);
     }
 
     public function edit(Task $task, bool $editable=false)
