@@ -10,14 +10,16 @@ class SortableLink extends Component
     public $list;
     public $field;
     public $sortField, $sortDirection;
+    public $query;
 
-    public function mount($text,$list,$field,$sortField,$sortDirection)
+    public function mount($text,$list,$field,$query)
     {
         $this->text = $text;
         $this->list = $list;
         $this->field = $field;
-        $this->sortField = $sortField;
-        $this->sortDirection = $sortDirection;
+        $this->query = $query;
+        $this->sortField = $query['sortField'] ?? 'created_at';
+        $this->sortDirection = $query['sortDirection'] ?? 'desc';
 
     }
 
@@ -27,7 +29,10 @@ class SortableLink extends Component
                             ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc'
                             : 'asc';
 
-        $url = '/tasks?sortField='.$this->field.'&sortDirection='.$this->sortDirection;
+        $this->query['sortField'] = $this->field;
+        $this->query['sortDirection'] = $this->sortDirection;
+
+        $url = '/' . $this->list . '?' . http_build_query($this->query);
 
         $this->redirect($url);
     }

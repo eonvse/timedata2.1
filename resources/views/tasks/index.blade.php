@@ -19,13 +19,13 @@
                             </x-table.head>
                             <x-table.head class="text-center">
                                 <div class="flex justify-center">
-                                    <livewire:sortable-link text="{{ __('Event Day') }}" list="tasks" field="day" :sortField="$sortField" :sortDirection="$sortDirection" />
+                                    <livewire:sortable-link text="{{ __('Event Day') }}" list="tasks" field="day" :query="$query" />
                                 </div>
                             </x-table.head>
                             <x-table.head class="text-center">{{ __('Task time') }}</x-table.head>
                             <x-table.head class="text-center">
                                 <div class="flex justify-center">
-                                    <livewire:sortable-link text="{{ __('Created_at') }}" list="tasks" field="created_at" :sortField="$sortField" :sortDirection="$sortDirection" />
+                                    <livewire:sortable-link text="{{ __('Created_at') }}" list="tasks" field="created_at" :query="$query" />
                                 </div>
                             </x-table.head>
                             <x-table.head>{{ __('Autor') }}</x-table.head>
@@ -70,7 +70,7 @@
                             </x-table.row>
                         @endforelse
                     </x-table>
-                    <div class="m-2">{{ $tasks->links() }}</div>
+                    <div class="m-2">{{ $tasks->appends($_GET)->links() }}</div>
                 </div>
             </div>
         </div>
