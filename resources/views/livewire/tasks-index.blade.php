@@ -154,4 +154,13 @@
         </x-slot>
     </x-modal-wire.dialog>
 
+    <x-spinner wire:loading wire:target="sortBy" />
+    <x-spinner wire:loading wire:target="openCreate" />
+    <x-spinner wire:loading wire:target="closeCreate" />
+    <x-spinner wire:loading wire:target="save" />
+    <x-spinner wire:loading wire:target="openDelete" />
+    <x-spinner wire:loading wire:target="closeDelete" />
+    <x-spinner wire:loading wire:target="destroy" />
+
+
 </div>
