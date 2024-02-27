@@ -7,7 +7,6 @@ use Livewire\Attributes\Title;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 use App\DB\Tasks;
@@ -19,7 +18,7 @@ class TasksIndex extends Component
 
     private const PAGINATE=10;
 
-    private $autor_id;
+    public $autor_id;
 
     public $newRecord, $delRecord; //массивы для модальных окон создания и удаления
     public $sortField, $sortDirection; //сортировка по полю
@@ -30,6 +29,7 @@ class TasksIndex extends Component
 
     public function resetRecords()
     {
+
         $this->newRecord = array(
             'name'=>null,
             'autor_id'=>$this->autor_id,
@@ -43,11 +43,9 @@ class TasksIndex extends Component
             'dateDone'=>null,
         );
 
-        $this->delRecord = array(
-            'id'=>null,
-            'name'=>null,
-            'content'=>null,
-        );
+        $this->delRecord = null;
+
+        $this->resetValidation();
 
     }
 
@@ -64,6 +62,25 @@ class TasksIndex extends Component
         $this->showCreate = $this->showDelete = false;
         $this->colors = Color::orderBy('base')->get()->toArray();
 
+    }
+
+    public function rules()
+    {
+        $rules = [];
+
+        $rules['newRecord.name'] = 'required|min:3';
+        $rules['newRecord.autor_id'] = 'decimal:0';
+        $rules['newRecord.team_id'] = 'decimal:0';
+        $rules['newRecord.color_id'] = 'decimal:0';
+        $rules['newRecord.day'] = 'nullable|date';
+        $rules['newRecord.start'] = 'nullable';
+        $rules['newRecord.end'] = 'nullable';
+        $rules['newRecord.content'] = 'nullable|min:10';
+        $rules['newRecord.isDone'] = 'nullable';
+        $rules['newRecord.dateDone'] = 'nullable|date';
+
+
+        return $rules;
     }
 
     #[Title('Задачи')]
@@ -96,39 +113,15 @@ class TasksIndex extends Component
     public function save()
     {
 
-        $validated = Validator::make(
-            //Data
-            [
-                'name'=>$this->newRecord['name'],
-                'autor_id'=>$this->newRecord['autor_id'],
-                'team_id'=>$this->newRecord['team_id'],
-                'color_id'=>$this->newRecord['color_id'],
-                'day'=>$this->newRecord['day'],
-                'start'=>$this->newRecord['start'],
-                'end'=>$this->newRecord['end'],
-                'content'=>$this->newRecord['content'],
-                'isDone'=>$this->newRecord['isDone'],
-                'dateDone'=>$this->newRecord['dateDone']
-            ],
+        $this->validate();
 
-            //Rules
-            [
-                'name'=>'required|min:3',
-                'autor_id'=>'decimal:0',
-                'team_id'=>'decimal:0',
-                'color_id'=>'decimal:0',
-                'day'=>'nullable|date',
-                'start'=>'nullable',
-                'end'=>'nullable',
-                'content'=>'nullable|min:10',
-                'isDone'=>'nullable',
-                'dateDone'=>'nullable|date',
-            ]
-
-        )->validate();
-
-        Tasks::create($validated);
+        Tasks::create($this->newRecord);
         $this->closeCreate();
+
+        $this->dispatch('banner-message', [
+            'style' => 'success',
+            'message' => 'Order successfull created!'
+        ]);
 
         /*$message = "Задача " . $this->data['name'] . " сохранена";
         session()->flash('flash.banner', $message);
@@ -136,5 +129,23 @@ class TasksIndex extends Component
 
         $this->redirectRoute('tasks.edit', ['task'=>$this->task]);*/
 
+    }
+
+    public function openDelete($task_id)
+    {
+        $this->delRecord = Tasks::getDelMessage($task_id);
+        $this->showDelete = true;
+    }
+
+    public function closeDelete()
+    {
+        $this->delRecord = null;
+        $this->showDelete = false;
+    }
+
+    public function destroy($task_id)
+    {
+        Tasks::delete($task_id);
+        $this->closeDelete();
     }
 }

@@ -50,4 +50,19 @@ class Tasks
         Task::create($validated);
     }
 
+    public static function getDelMessage($task_id)
+    {
+        $task = DB::table('tasks')
+                ->leftJoin('colors','colors.id','=','tasks.color_id')
+                ->where('tasks.id',$task_id)->select('tasks.id','tasks.name','tasks.content','colors.base','colors.dark')->get()
+                ->toArray();
+
+        return $task[0];
+    }
+
+    public static function delete($task_id)
+    {
+        Task::find($task_id)->delete();
+    }
+
 }

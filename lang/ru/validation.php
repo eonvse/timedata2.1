@@ -184,6 +184,8 @@ return [
         'password'=>'Пароль',
         'current_password'=>'Текущий пароль',
         'content'=>'Содержание',
+        'newRecord.name'=>'Название',
+        'newRecord.content'=>'Содержание',
 
     ],
 

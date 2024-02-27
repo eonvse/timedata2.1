@@ -29,7 +29,7 @@
                         <div class="py-3 px-4 sm:px-6 lg:px-8 ">
                             {{ $header }}
                         </div>
-                        <div class="col-span-2 content-center items-center place-content-center grid grid-cols-1"><div><x-banner /></div></div>
+                        <div class="col-span-2 content-center items-center place-content-center grid grid-cols-1"><div><x-banner.wire /></div></div>
                     </div>
                 </header>
             @endif

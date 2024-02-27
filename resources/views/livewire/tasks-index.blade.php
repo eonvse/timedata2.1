@@ -59,7 +59,7 @@
                                 <x-table.cell>
                                     <div class="flex items-center">
                                     <x-link.icon-edit href="{{ route('tasks.edit', ['task'=>$task, 'editable'=>1]) }}" title="{{ __('Edit') }}" />
-                                    <x-link.icon-del  />
+                                    <x-button.icon-del  wire:click="openDelete({{ $task->id }})"/>
                                     </div>
 
                                 </x-table.cell>
@@ -91,7 +91,7 @@
                     <div>
                         <x-input.label value="{{ __('Task name') }}" />
                         <x-input.text wire:model="newRecord.name" required autofocus />
-                        @error('name') <x-error>{{ $message }}</x-error> @enderror
+                        @error('newRecord.name') <x-error>{{ $message }}</x-error> @enderror
                     </div>
                     <div>
                         @php
@@ -109,7 +109,7 @@
                     <div class="my-1">
                         <x-input.label class="my-2" value="{{ __('Task content') }}" />
                         <x-input.div-editable wire:model="newRecord.content" editable="true" >{!! $newRecord['content'] !!}</x-input.div-editable>
-                        @error('content') <x-error>{{ $message }}</x-error> @enderror
+                        @error('newRecord.content') <x-error>{{ $message }}</x-error> @enderror
                     </div>
                     <div class="my-1 sm:grid sm:grid-cols-[100px_minmax(0,_1fr)] items-center">
                         <x-input.label>Дата</x-input.label>
@@ -118,12 +118,12 @@
                     <div class="my-1 sm:grid sm:grid-cols-[100px_minmax(0,_1fr)] items-center">
                         <x-input.label>Начало</x-input.label>
                         <x-input.text type="time" wire:model.blur="newRecord.start" />
-                        @error('start') <x-error class="col-span-2">{{ $message }}</x-error> @enderror
+                        @error('newRecord.start') <x-error class="col-span-2">{{ $message }}</x-error> @enderror
                     </div>
                     <div class="my-1 sm:grid sm:grid-cols-[100px_minmax(0,_1fr)] items-center">
                         <x-input.label>Завершение</x-input.label>
                         <x-input.text type="time" wire:model.blur="newRecord.end" />
-                        @error('end') <x-error class="col-span-2">{{ $message }}</x-error> @enderror
+                        @error('newRecord.end') <x-error class="col-span-2">{{ $message }}</x-error> @enderror
                     </div>
                     <div class="flex mt-4">
                         <x-button.create>{{ __('Save Task') }}</x-button.create>
@@ -133,5 +133,25 @@
             </div>
         </div>
     </x-sidebar>
+
+    <x-modal-wire.dialog wire:model="showDelete" maxWidth="md" type="warn">
+        <x-slot name="title">
+            <span class="grow">{{ __('Task delete') }}</span>
+            <x-button.icon-cancel wire:click="closeDelete" class="text-gray-700 hover:text-white dark:hover:text-white" /></x-slot>
+        <x-slot name="content">
+            <div class="flex-col space-y-2">
+                <x-input.label class="text-lg font-medium">Вы действительно хотите удалить запись?
+                    <div class="text-black dark:text-white flex items-center">
+                        <div class="w-4 mx-1 {{ $delRecord->base ?? '' }} dark:{{ $delRecord->dark ?? '' }}">&nbsp;</div>
+                        <div>{{ $delRecord->name ?? '' }}</div>
+                    </div>
+                    <div>{!! $delRecord->content ?? '' !!}</div>
+                    <div class="text-red-600 dark:text-red-200 shadow p-1">{{ __('Task Delete Message') }}</div>
+                </x-input.label>
+                <x-button.secondary wire:click="closeDelete">{{ __('Cancel') }}</x-button.secondary>
+                <x-button.danger wire:click="destroy({{ $delRecord->id ?? 0 }})">{{ __('Delete')}}</x-button.danger>
+            </div>
+        </x-slot>
+    </x-modal-wire.dialog>
 
 </div>
