@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Livewire\TasksIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,6 @@ Route::middleware([
 
     Route::get('/tasks',[\App\Http\Controllers\TaskController::class,'index'])->name('tasks.index');
     Route::get('/tasks/{task}/{editable?}', [\App\Http\Controllers\TaskController::class,'edit'])->name('tasks.edit');
+
+    Route::get('/test',TasksIndex::class)->name('tasks.test');
 });
