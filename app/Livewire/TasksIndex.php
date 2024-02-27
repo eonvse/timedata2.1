@@ -116,18 +116,9 @@ class TasksIndex extends Component
         $this->validate();
 
         Tasks::create($this->newRecord);
+        $message = "Задача " . $this->newRecord['name'] . " сохранена";
         $this->closeCreate();
-
-        $this->dispatch('banner-message', [
-            'style' => 'success',
-            'message' => 'Order successfull created!'
-        ]);
-
-        /*$message = "Задача " . $this->data['name'] . " сохранена";
-        session()->flash('flash.banner', $message);
-        session()->flash('flash.bannerStyle', 'success');
-
-        $this->redirectRoute('tasks.edit', ['task'=>$this->task]);*/
+        $this->dispatch('banner-message', style:'success', message: $message);
 
     }
 
@@ -145,7 +136,9 @@ class TasksIndex extends Component
 
     public function destroy($task_id)
     {
+        $message = "Удалена задача: " . Tasks::getFieldValue($task_id,'name');
         Tasks::delete($task_id);
         $this->closeDelete();
+        $this->dispatch('banner-message', style:'danger', message: $message);
     }
 }
