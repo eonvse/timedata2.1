@@ -41,9 +41,19 @@
                         @forelse ($list as $task)
                             <x-table.row wire:key="{{ $task->id }}">
                                 <x-table.cell>
-                                    <div class="flex items-center">
-                                        <div class="w-4 mx-1 {{ $task->color->base ?? '' }} dark:{{ $task->color->dark ?? '' }}">&nbsp;</div>
-                                        <div><x-link.table-cell href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}">{{ $task->name }}</x-link.table-cell></div>
+                                    <div class="relative items-center">
+                                        <x-tooltip.bottom-cell class="px-2">
+                                            <div class="flex items-center">
+                                                <div class="w-4 mx-1 {{ $task->color->base ?? '' }} dark:{{ $task->color->dark ?? '' }}">&nbsp;</div>
+                                                <div><x-link.table-cell href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}">{{ $task->name }}</x-link.table-cell></div>
+                                            </div>
+                                            @if (!empty($task->content))
+                                            <x-slot name='tooltip'>
+                                                <div class="font-semibold">{{ __('Task content') }}:</div>
+                                                <div>{!! $task->content !!}</div>
+                                            </x-slot>
+                                            @endif
+                                        </x-tooltip.bottom-cell>
                                     </div>
                                 </x-table.cell>
                                 <x-table.cell class="tabular-nums">{{ $task->day_format }}</x-table.cell>
