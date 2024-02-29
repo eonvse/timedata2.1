@@ -1,4 +1,8 @@
 {
+    "Not Found":"Страница не найдена",
+    "Forbidden":"Нет доступа",
+    "User does not have the right permissions.":"Пользователь не имеет нужных разрешений.",
+    "Page Expired":"Срок действия страницы истек",
     "empty":"Не заполнено",
     "Autor": "Автор",
     "Dashboard": "Панель управления",

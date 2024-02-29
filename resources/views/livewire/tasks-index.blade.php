@@ -45,7 +45,7 @@
                                         <x-tooltip.bottom-cell class="px-2">
                                             <div class="flex items-center">
                                                 <div class="w-4 mx-1 {{ $task->color->base ?? '' }} dark:{{ $task->color->dark ?? '' }}">&nbsp;</div>
-                                                <div><x-link.table-cell href="{{ route('tasks.edit', $task) }}" title="{{ __('Edit') }}">{{ $task->name }}</x-link.table-cell></div>
+                                                <div><x-link.table-cell href="{{ route('tasks.edit', $task) }}">{{ $task->name }}</x-link.table-cell></div>
                                             </div>
                                             @if (!empty($task->content))
                                             <x-slot name='tooltip'>

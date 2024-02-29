@@ -15,7 +15,7 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-
+                    @can('manage tasks')
                     <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.*')">
                         {{ __('Tasks') }}
                     </x-nav-link>
@@ -24,6 +24,7 @@
                         {{ __('Test') }}
                     </x-nav-link>
 
+                    @endcan
                 </div>
             </div>
 
