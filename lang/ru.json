@@ -162,5 +162,8 @@
     "Delete Note": "Удаление заметки",
     "User add teams": "Добавить в группу",
     "Email": "Логин (Email)",
-    "Register": "Регистрация"
+    "Register": "Регистрация",
+    "Show": "Посмотреть",
+    "Manage Roles":"Управление ролями",
+    "Add New Role":"Добавить роль"
 }
