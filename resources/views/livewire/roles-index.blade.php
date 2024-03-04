@@ -78,7 +78,13 @@
 
                <div class="p-2">
                     <x-input.label>{{ __('Permissions') }}</x-input.label>
-                    {{ implode(',',$itemRole['permissionsId']) ?? '-' }}
+                    <div class="flex flex-wrap items-center">
+                        @foreach ($selectedPermissions as $permission)
+                        <div class="m-1">
+                            <x-marker.select>{{ $permission }}</x-marker.select>
+                        </div>
+                        @endforeach
+                    </div>
                     <div class="">
                         <select multiple wire:model.live='itemRole.permissionsId' style="height: 210px;" required>
                             <option value="">Выберите разрешение</option>

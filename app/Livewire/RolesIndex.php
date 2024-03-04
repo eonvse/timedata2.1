@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Log;
 
 class RolesIndex extends Component
 {
@@ -18,6 +18,8 @@ class RolesIndex extends Component
     public $permissions;
 
     public $showEdit, $showDelete;
+
+    public array $selectedPermissions;
 
     public function resetRole()
     {
@@ -29,6 +31,8 @@ class RolesIndex extends Component
             ),
             'permissionsName'=>array(''),
         );
+
+        $this->selectedPermissions = array('');
     }
 
     public function mountRole($roleId)
@@ -52,7 +56,25 @@ class RolesIndex extends Component
                 'permissionsId'=>$rolePermissions,
                 'permissionsName'=>$rolePermissionsName,
             );
+
+        $this->selectedPermissions = $rolePermissionsName;
+
         }
+
+    private function updateSelectedPermission(array $selected)
+    {
+
+        //Log::notice('---UPDATE SELECTED Permission---');
+        //Log::debug('selected = ' . implode(',',$selected));
+
+        $this->selectedPermissions = DB::table("permissions")->whereIn("id",$selected)
+        ->pluck('name')
+        ->all();
+
+        //Log::debug('selectedPermissions = ' . implode(',',$this->selectedPermissions));
+
+
+    }
 
     public function mount()
     {
@@ -69,6 +91,20 @@ class RolesIndex extends Component
         ]);
     }
 
+    public function updated($property)
+    {
+        // $property: The name of the current property that was updated
+        //Log::notice('---UPDATED---');
+        //Log::debug('property = ' . $property);
+        //Log::debug('Ids = ' . implode(',',$this->itemRole['permissionsId']));
+        //Log::debug('selectedPermissions = ' . implode(',',$this->selectedPermissions));
+
+        if (str_contains($property,'itemRole.permissionsId')) {
+            $this->updateSelectedPermission($this->itemRole['permissionsId']);
+        }
+    }
+
+
     public function openCreate()
     {
         $this->resetRole();
@@ -77,6 +113,8 @@ class RolesIndex extends Component
 
     public function closeCreate()
     {
+        //Log::notice('---CLOSE CREATE---');
+        //Log::debug('Before Close Edit Ids =' . implode(',',$this->itemRole['permissionsId']));
         $this->resetRole();
         $this->showEdit = false;
     }
@@ -85,6 +123,10 @@ class RolesIndex extends Component
     {
         $this->mountRole($roleId);
         $this->showEdit = true;
+
+        //Log::notice('---OPEN EDIT---');
+        //Log::debug('itemRole Ids =' . implode(',',$this->itemRole['permissionsId']));
+        //Log::debug('selectedPermissions = ' . implode(',',$this->selectedPermissions));
     }
 
     public function save()
