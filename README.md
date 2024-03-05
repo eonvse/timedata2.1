@@ -11,6 +11,8 @@ sail up
 sail shell
 npm run build
 php artisan migrate
+php artisan db:seed
+#php artisan db:seed --class...
 ```   	
 * [Laravel 10](https://laravel.com/docs/10.x)
     * [Laravel Sail (Docker)](https://laravel.com/docs/10.x/sail#main-content)
