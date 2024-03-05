@@ -29,7 +29,15 @@
                         <div class="py-3 px-4 sm:px-6 lg:px-8 ">
                             {{ $header }}
                         </div>
-                        <div class="col-span-2 content-center items-center place-content-center grid grid-cols-1"><div><x-banner /></div></div>
+                        <div>
+                            @can('role.view')
+                            role VIEW
+                            @endcan
+                            @foreach (Auth::user()->getAllPermissions() as $item)
+                            <x-marker.select>{{ $item->name }}</x-marker.select>
+                            @endforeach
+                        </div>
+                        <div class="content-center items-center place-content-center grid grid-cols-1"><div><x-banner /></div></div>
                     </div>
                 </header>
             @endif

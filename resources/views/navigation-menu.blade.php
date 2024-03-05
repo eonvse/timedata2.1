@@ -31,6 +31,13 @@
                         {{ __('Roles') }}
                     </x-nav-link>
                     @endcan
+
+                    @can('user.view')
+                    <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users*')">
+                        {{ __('Users') }}
+                    </x-nav-link>
+                    @endcan
+
                 </div>
             </div>
 

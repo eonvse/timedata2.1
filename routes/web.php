@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +20,7 @@ Route::get('/', function () {
 Route::resource('colors', \App\Http\Controllers\ColorController::class);
 
 Route::middleware([
-    'auth:sanctum',
+    'auth',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
@@ -33,6 +32,10 @@ Route::middleware([
         Route::get('/roles', App\Livewire\Roles\Index::class)->name('roles');
         });
 
+    Route::group(['middleware' => ['permission:user.view|user.edit|user.create|user.delete']],function () {
+            Route::get('/users', App\Livewire\Users\Index::class)->name('users');
+            });
+
     Route::group(['middleware' => ['permission:task.view|task.edit|task.create|task.delete']],function () {
 
         Route::get('/test', App\Livewire\Tasks\Index::class)->name('tasks.test');
@@ -40,10 +43,5 @@ Route::middleware([
         Route::get('/tasks/{task}/{editable?}', [\App\Http\Controllers\TaskController::class,'edit'])->name('tasks.edit');
 
     });
-
-    Route::resources([
-        'users' => UserController::class,
-    ]);
-
 
 });
