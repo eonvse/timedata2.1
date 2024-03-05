@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Roles;
 
 use Livewire\Component;
 use Livewire\Attributes\Title;
@@ -11,7 +11,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 //use Illuminate\Support\Facades\Log;
 
-class RolesIndex extends Component
+class Index extends Component
 {
     public $itemRole;
 
@@ -90,7 +90,7 @@ class RolesIndex extends Component
     #[Title('Роли')]
     public function render()
     {
-        return view('livewire.roles-index',[
+        return view('livewire.roles.index',[
             'roles' => Role::orderBy($this->sortField,$this->sortDirection)->get(),
         ]);
     }

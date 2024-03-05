@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Tasks;
 
 use Livewire\Component;
 use Livewire\Attributes\Title;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\DB\Tasks;
 use App\Models\Color;
 
-class TasksIndex extends Component
+class Index extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
@@ -87,7 +87,7 @@ class TasksIndex extends Component
     public function render()
     {
         $list = Tasks::wire_list($this->sortField,$this->sortDirection,$this->filter)->paginate(self::PAGINATE);
-        return view('livewire.tasks-index',['list'=>$list]);
+        return view('livewire.tasks.index',['list'=>$list]);
     }
 
     public function sortBy($field)
