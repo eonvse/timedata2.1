@@ -16,7 +16,12 @@
                     <x-table>
                         <x-slot name="header">
                             <x-table.head>ID</x-table.head>
-                            <x-table.head>{{ __('Role Name') }}</x-table.head>
+                            <x-table.head
+                                    sortable
+                                    wire:click="sortBy('name')"
+                                    :direction="$sortField === 'name' ? $sortDirection : null">
+                                    {{ __('Role Name') }}
+                            </x-table.head>
                             <x-table.head>{{ __('Role Permissions') }}</x-table.head>
                             <x-table.head>{{ __('Action') }}</x-table.head>
                             </tr>
@@ -134,6 +139,7 @@
     <x-spinner wire:loading wire:target="sortBy" />
     <x-spinner wire:loading wire:target="openCreate" />
     <x-spinner wire:loading wire:target="closeCreate" />
+    <x-spinner wire:loading wire:target="openEdit" />
     <x-spinner wire:loading wire:target="save" />
     <x-spinner wire:loading wire:target="openDelete" />
     <x-spinner wire:loading wire:target="closeDelete" />

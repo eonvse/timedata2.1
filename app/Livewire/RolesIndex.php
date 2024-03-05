@@ -21,6 +21,8 @@ class RolesIndex extends Component
 
     public array $selectedPermissions;
 
+    public $sortField, $sortDirection; //сортировка по полю
+
     public function resetRole()
     {
         $this->itemRole = array(
@@ -32,7 +34,7 @@ class RolesIndex extends Component
             'permissionsName'=>array(''),
         );
 
-        $this->selectedPermissions = array('');
+        $this->selectedPermissions = array();
     }
 
     public function mountRole($roleId)
@@ -81,13 +83,15 @@ class RolesIndex extends Component
         $this->resetRole();
         $this->showEdit = $this->showDelete = false;
         $this->permissions = Permission::orderBy('name','asc')->get();
-    }
+        $this->sortField = 'name';
+        $this->sortDirection = 'asc';
+   }
 
     #[Title('Роли')]
     public function render()
     {
         return view('livewire.roles-index',[
-            'roles' => Role::orderBy('name','asc')->get(),
+            'roles' => Role::orderBy($this->sortField,$this->sortDirection)->get(),
         ]);
     }
 
@@ -104,6 +108,14 @@ class RolesIndex extends Component
         }
     }
 
+    public function sortBy($field)
+    {
+        $this->sortDirection = $this->sortField === $field
+                            ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc'
+                            : 'asc';
+
+        $this->sortField = $field;
+    }
 
     public function openCreate()
     {
