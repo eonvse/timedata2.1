@@ -82,7 +82,7 @@
                 </div>
 
                <div class="p-2">
-                    <x-input.label>{{ __('Permissions') }}</x-input.label>
+                    <x-input.label>{{ __('Role Permissions') }}</x-input.label>
                     <div class="flex flex-wrap items-center">
                         @foreach ($selectedPermissions as $permission)
                         <div class="m-1">

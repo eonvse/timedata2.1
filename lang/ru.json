@@ -164,6 +164,24 @@
     "Email": "Логин (Email)",
     "Register": "Регистрация",
     "Show": "Посмотреть",
+    "Action":"...",
+    "Roles": "Роли",
     "Manage Roles":"Управление ролями",
-    "Add New Role":"Добавить роль"
+    "Add New Role":"Добавить роль",
+    "Role Name":"Название роли",
+    "Role Permissions":"Разрешения",
+    "Edit Role":"Редактировать роль",
+    "Role delete":"Удалить роль",
+    "Role Delete Message":"Сообщение при удалении роли",
+    "Users": "Пользователи",
+    "Manage Users":"Управление пользователями",
+    "Add New User":"Добавить пользователя",
+    "User Name":"Имя пользователя",
+    "User Email":"Email пользователя",
+    "User Password":"Пароль пользователя",
+    "User Roles":"Роли",
+    "User delete":"Удалить пользователя",
+    "User Delete Message":"Сообщение при удалении пользователя"
+
+
 }

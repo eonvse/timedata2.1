@@ -102,8 +102,10 @@ class Index extends Component
         $rules = [];
 
         $rules['itemUser.name'] = 'required|string|min:3|max:255';
-        $rules['itemUser.email'] = 'required|email|max:255|unique:users,email';
-        $rules['itemUser.password'] = 'required|string|min:8|max:20';
+        if (empty($this->itemUser['id'])){
+            $rules['itemUser.email'] = 'required|email|max:255|unique:users,email';
+            $rules['itemUser.password'] = 'required|string|min:8|max:20';
+        }
 
         return $rules;
     }
@@ -157,9 +159,9 @@ class Index extends Component
 
     public function save()
     {
-        if($this->itemUser['id']==0) {
+        $this->validate();
 
-            $this->validate();
+        if($this->itemUser['id']==0) {
 
             $user = User::create([
                 'name' => $this->itemUser['name'],
@@ -167,29 +169,17 @@ class Index extends Component
                 'password' => Hash::make($this->itemUser['password']),
             ]);
 
-            /*foreach ($this->itemUser['rolesId'] as $select)
-            {
-                DB::table('model_has_roles')->insert([
-                    'model_id'=>$user->id,
-                    'model_type'=>'App\Models\User',
-                    'role_id'=>$select,
-                ]);
-            }*/
-
-            $user->syncRoles($this->selectedRoles);
-
             $message = "Добавлен пользователь: " . $this->itemUser['name'];
 
         }else{
 
-            $role = Role::findById($this->itemUser['id']);
-            $role->update(['name'=>$this->itemUser['name']]);
+            $user = User::find($this->itemUser['id']);
+            $user->update(['name'=>$this->itemUser['name']]);
 
-            $message = "Роль: " . $this->itemUser['name'] . " сохранена.";
+            $message = "Пользователь: " . $this->itemUser['name'] . " сохранен.";
         }
 
-        //$permissions = Permission::whereIn('id', $this->itemRole['permissionsId'])->get(['name'])->toArray();
-        //$role->syncPermissions($permissions);
+        $user->syncRoles($this->selectedRoles);
 
         $this->dispatch('banner-message', style:'success', message: $message);
 
@@ -209,21 +199,14 @@ class Index extends Component
         $this->showDelete = false;
     }
 
-    public function destroy($roleId)
+    public function destroy($userId)
     {
 
-        $this->mountUser($roleId);
+        $user = User::findOrFail($userId);
+        $user->delete();
 
-        if($this->itemRole['name']=='Super Admin'){
-            abort(403, 'SUPER ADMIN ROLE CAN NOT BE DELETED');
-        }
-        /*if(Auth::user()->hasRole($this->itemRole['name'])){
-            abort(403, 'CAN NOT DELETE SELF ASSIGNED ROLE');
-        }*/
-        DB::table("role_has_permissions")->where("role_id",$roleId)->delete();
-        DB::table("roles")->where("id",$roleId)->delete();
+        $message = "Пользователь: " . $this->itemUser['name'] . " удален.";
 
-        $message = "Роль: " . $this->itemRole['name'] . " удалена.";
         $this->dispatch('banner-message', style:'danger', message: $message);
 
         $this->closeDelete();

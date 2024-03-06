@@ -68,7 +68,7 @@
     </div>
 
     <x-modal-wire.dialog wire:model="showEdit" maxWidth="md">
-        <x-slot name="title"><span class="grow">{{ empty($itemRole['id']) ? __('Add New User') : __('Edit User') }}</span><x-button.icon-cancel wire:click="closeCreate" class="text-gray-700 hover:text-white" /></x-slot>
+        <x-slot name="title"><span class="grow">{{ empty($itemUser['id']) ? __('Add New User') : __('Edit User') }}</span><x-button.icon-cancel wire:click="closeCreate" class="text-gray-700 hover:text-white" /></x-slot>
         <x-slot name="content">
             <form wire:submit="save">
                 <div class="p-2">
@@ -76,6 +76,7 @@
                     <x-input.text wire:model="itemUser.name" required />
                     @error('itemUser.name') <x-error class="col-span-2">{{ $message }}</x-error> @enderror
                 </div>
+                @if (empty($itemUser['id']))
                 <div class="p-2">
                     <x-input.label>{{ __('User Email') }}</x-input.label>
                     <x-input.text wire:model="itemUser.email" required />
@@ -86,7 +87,8 @@
                     <x-input.text wire:model="itemUser.password" required />
                     @error('itemUser.password') <x-error class="col-span-2">{{ $message }}</x-error> @enderror
                 </div>
-               <div class="p-2">
+                @endif
+                <div class="p-2">
                     <x-input.label>{{ __('User Roles') }}</x-input.label>
                     <div class="flex flex-wrap items-center">
                         @foreach ($selectedRoles as $role)
@@ -131,7 +133,7 @@
                  <div class="m-1"><x-marker.primary>{{ $roleName }}</x-marker.primary></div>
                 @endforeach
                 </div>
-                <div class="text-red-600 dark:text-red-200 shadow p-1">{{ __('Role Delete Message') }}</div>
+                <div class="text-red-600 dark:text-red-200 shadow p-1">{{ __('User Delete Message') }}</div>
                     <x-button.secondary wire:click="closeDelete">{{ __('Cancel') }}</x-button.secondary>
                     <x-button.danger wire:click="destroy({{ $itemUser['id'] }})">{{ __('Delete')}}</x-button.danger>
                 </div>
