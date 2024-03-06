@@ -28,15 +28,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::group(['middleware' => ['permission:role.view|role.edit|role.create|role.delete']],function () {
+    Route::group(['middleware' => ['permission:role.view']],function () {
         Route::get('/roles', App\Livewire\Roles\Index::class)->name('roles');
         });
 
-    Route::group(['middleware' => ['permission:user.view|user.edit|user.create|user.delete']],function () {
+    Route::group(['middleware' => ['permission:user.view']],function () {
             Route::get('/users', App\Livewire\Users\Index::class)->name('users');
             });
 
-    Route::group(['middleware' => ['permission:task.view|task.edit|task.create|task.delete']],function () {
+    Route::group(['middleware' => ['permission:task.view']],function () {
 
         Route::get('/test', App\Livewire\Tasks\Index::class)->name('tasks.test');
         Route::get('/tasks',[\App\Http\Controllers\TaskController::class,'index'])->name('tasks.index');
