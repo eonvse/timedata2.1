@@ -33,6 +33,15 @@
                     <div class="border-1 bg-fuchsia-300 dark:bg-fuchsia-400 border-fuchsia-300 dark:border-fuchsia-400">..</div>
 
                 </div>
+                <div>
+                    Markers
+                    <div>
+                        <span class="bg-yellow-200 text-black m-2">..</span>
+                        <span class="bg-sky-200 text-black m-2">..</span>
+                        <span class="bg-green-200 text-black m-2">..</span>
+
+                    </div>
+                </div>
                 </div>
             </div>
         </div>

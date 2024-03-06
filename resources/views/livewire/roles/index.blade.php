@@ -32,10 +32,10 @@
                             <x-table.cell>{{ $role->name }}</x-table.cell>
                             <x-table.cell>
                                 @if ($role->name=='Super Admin')
-                                    <x-marker.primary>{{ __('All') }}</x-marker.primary>
+                                    <x-marker.permission>{{ __('All') }}</x-marker.permission>
                                 @else
                                     @forelse ($role->permissions as $permission)
-                                    <x-marker.primary>{{ $permission->name }}</x-marker.primary>
+                                    <x-marker.permission :name="$permission->name">{{ $permission->name }}</x-marker.permission>
                                     @empty
                                     -
                                     @endforelse
@@ -86,7 +86,7 @@
                     <div class="flex flex-wrap items-center">
                         @foreach ($selectedPermissions as $permission)
                         <div class="m-1">
-                            <x-marker.select>{{ $permission }}</x-marker.select>
+                            <x-marker.permission :name="$permission">{{ $permission }}</x-marker.permission>
                         </div>
                         @endforeach
                     </div>
@@ -123,7 +123,7 @@
                 </x-input.label>
                 <div class="flex flex-wrap items-center">
                 @foreach ($itemRole['permissionsName'] as $permissionName )
-                 <div class="m-1"><x-marker.primary>{{ $permissionName }}</x-marker.primary></div>
+                 <div class="m-1"><x-marker.permission :name="$permissionName">{{ $permissionName }}</x-marker.permission></div>
                 @endforeach
                 </div>
                 <div class="text-red-600 dark:text-red-200 shadow p-1">{{ __('Role Delete Message') }}</div>
