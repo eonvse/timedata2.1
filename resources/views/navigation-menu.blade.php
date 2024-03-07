@@ -20,10 +20,6 @@
                     <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.*')">
                         {{ __('Tasks') }}
                     </x-nav-link>
-
-                    <x-nav-link href="{{ route('tasks.test') }}" :active="request()->routeIs('tasks.test*')">
-                        {{ __('Test') }}
-                    </x-nav-link>
                     @endcan
 
                     @can('role.view')

@@ -9,20 +9,10 @@ use App\DB\Tasks;
 
 class TaskController extends Controller
 {
-    const PER_PAGE=10; //записей на страницу
-
-    public function index(Request $request)
-    {
-        $sortField = $request->sortField ?? 'created_at';
-        $sortDirection = $request->sortDirection ?? 'desc';
-        $tasks = Tasks::list(Self::PER_PAGE, $sortField,$sortDirection);
-
-        return view('tasks.index', ['tasks'=>$tasks, 'query'=>$request->query()]);
-    }
 
     public function edit(Task $task, bool $editable=false)
     {
-        $this->authorize('manage tasks');
+        $this->authorize('task.edit');
 
         return view('tasks.edit', ['task' => $task, 'editable'=>$editable]);
     }

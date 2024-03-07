@@ -83,7 +83,9 @@
         @else
         <div class="flex justify-center items-center">
             <x-button.icon-edit type="button" wire:click='openEdit' title="{{ __('Edit') }}" />
-            <x-button.icon-del type="button" title="{{ __('Delete') }}" wire:click="showDelete" />
+            @can('task.delete')
+                <x-button.icon-del type="button" title="{{ __('Delete') }}" wire:click="showDelete" />
+            @endcan
         </div>
         @endif
     </div>

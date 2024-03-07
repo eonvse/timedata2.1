@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-1">
-                    @can('manage tasks')
+                    @can('task.create')
                     <div class="p-2">
                         <x-button.create wire:click="openCreate">{{ __('Add New Task') }}</x-button.create>
                     </div>
@@ -32,7 +32,7 @@
                                         {{ __('Created_at') }}
                             </x-table.head>
                             <x-table.head>{{ __('Autor') }}</x-table.head>
-                            @can('manage tasks')
+                            @can('task.edit')
                             <x-table.head>
 
                             </x-table.head>
@@ -65,11 +65,13 @@
                                 </x-table.cell>
                                 <x-table.cell class="tabular-nums">{{ $task->created }}</x-table.cell>
                                 <x-table.cell>{{ $task->autor->name }}</x-table.cell>
-                                @can('manage tasks')
+                                @can('task.edit')
                                 <x-table.cell>
                                     <div class="flex items-center">
                                     <x-link.icon-edit href="{{ route('tasks.edit', ['task'=>$task, 'editable'=>1]) }}" title="{{ __('Edit') }}" />
+                                    @can('task.delete')
                                     <x-button.icon-del  wire:click="openDelete({{ $task->id }})"/>
+                                    @endcan
                                     </div>
 
                                 </x-table.cell>

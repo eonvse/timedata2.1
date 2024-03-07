@@ -30,18 +30,18 @@ Route::middleware([
 
     Route::group(['middleware' => ['permission:role.view']],function () {
         Route::get('/roles', App\Livewire\Roles\Index::class)->name('roles');
-        });
+    });
 
     Route::group(['middleware' => ['permission:user.view']],function () {
             Route::get('/users', App\Livewire\Users\Index::class)->name('users');
-            });
+    });
 
     Route::group(['middleware' => ['permission:task.view']],function () {
+        Route::get('/tasks',App\Livewire\Tasks\Index::class)->name('tasks.index');
+    });
 
-        Route::get('/test', App\Livewire\Tasks\Index::class)->name('tasks.test');
-        Route::get('/tasks',[\App\Http\Controllers\TaskController::class,'index'])->name('tasks.index');
+    Route::group(['middleware' => ['permission:task.edit']],function () {
         Route::get('/tasks/{task}/{editable?}', [\App\Http\Controllers\TaskController::class,'edit'])->name('tasks.edit');
-
     });
 
 });
