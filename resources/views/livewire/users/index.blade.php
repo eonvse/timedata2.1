@@ -35,7 +35,7 @@
                             <x-table.cell>
                                 @if (!empty($user->getRoleNames()))
                                 @foreach ($user->getRoleNames() as $rolename)
-                                    <x-marker.primary>{{ $rolename }}</x-marker.primary>
+                                    <x-marker.role :name="$rolename" />
                                 @endforeach
                             @endif
                             </x-table.cell>
@@ -93,7 +93,7 @@
                     <div class="flex flex-wrap items-center">
                         @foreach ($selectedRoles as $role)
                         <div class="m-1">
-                            <x-marker.select>{{ $role }}</x-marker.select>
+                            <x-marker.role :name="$role" />
                         </div>
                         @endforeach
                     </div>
@@ -130,7 +130,7 @@
                 </x-input.label>
                 <div class="flex flex-wrap items-center">
                 @foreach ($itemUser['rolesName'] as $roleName )
-                 <div class="m-1"><x-marker.primary>{{ $roleName }}</x-marker.primary></div>
+                 <div class="m-1"><x-marker.role :name="$roleName" /></div>
                 @endforeach
                 </div>
                 <div class="text-red-600 dark:text-red-200 shadow p-1">{{ __('User Delete Message') }}</div>

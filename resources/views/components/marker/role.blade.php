@@ -1,12 +1,12 @@
 @props(['name'])
 
 @php
-$type = empty($name) ? 'default' : explode('.',$name)[0];
+$type = empty($name) ? 'default' : explode(' ',$name)[0];
 $types = [
     'default' => 'bg-blue-500 text-white',
-    'role' => 'bg-yellow-200 text-black',
-    'task' => 'bg-sky-200 text-black',
-    'user' => 'bg-green-200 text-black',
+    'Roles' => 'bg-yellow-200 text-black',
+    'Tasks' => 'bg-sky-200 text-black',
+    'Users' => 'bg-green-200 text-black',
 ];
 $css = isset($types[$type]) ? $types[$type] : $types['default'];
 @endphp
