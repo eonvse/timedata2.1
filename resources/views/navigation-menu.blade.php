@@ -34,6 +34,12 @@
                     </x-nav-link>
                     @endcan
 
+                    @can('log.view')
+                    <x-nav-link href="/log-viewer" target="_blank" :active="request()->routeIs('users*')">
+                        {{ __('Logs') }}
+                    </x-nav-link>
+                    @endcan
+
                 </div>
             </div>
 
