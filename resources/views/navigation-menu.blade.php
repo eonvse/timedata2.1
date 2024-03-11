@@ -51,7 +51,7 @@
                                             {{ __('Users') }}
                                         </x-dropdown-link>
                                         @endcan
-
+                                        <div class="border-t border-gray-200 dark:border-gray-600"></div>
                                         @can('log.view')
                                         <x-dropdown-link href="/log-viewer" target="_blank" :active="request()->routeIs('users*')">
                                             {{ __('Logs') }}

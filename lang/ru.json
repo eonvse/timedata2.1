@@ -181,7 +181,8 @@
     "User Password":"Пароль пользователя",
     "User Roles":"Роли",
     "User delete":"Удалить пользователя",
-    "User Delete Message":"Сообщение при удалении пользователя"
+    "User Delete Message":"Сообщение при удалении пользователя",
+    "Management":"Управление"
 
 
 }
