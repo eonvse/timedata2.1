@@ -25,7 +25,8 @@ class PermissionSeeder extends Seeder
             'task.view',
             'task.create',
             'task.edit',
-            'task.delete'
+            'task.delete',
+            'log.view'
          ];
 
           // Looping and Inserting Array's Permissions into Permission Table
