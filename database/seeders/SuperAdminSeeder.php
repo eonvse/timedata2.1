@@ -17,7 +17,7 @@ class SuperAdminSeeder extends Seeder
         // Creating Super Admin User
         Role::create(['name' => 'Super Admin']);
         $superAdmin = User::find(1);
-        //Первый зарегестрированный пользователь = Super Admin
+        //Первый зарегистрированный пользователь = Super Admin
         $superAdmin->assignRole('Super Admin');
 
     }

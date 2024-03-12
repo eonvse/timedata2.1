@@ -5,12 +5,9 @@ namespace App\Livewire\Users;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
-use App\Models\User;
+use App\DB\Users;
 
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-
-use Illuminate\Support\Facades\DB;
 //use Illuminate\Support\Facades\Log;
 
 #[Title('Пользователи')]
@@ -46,11 +43,9 @@ class Index extends Component
 
     public function mountUser($userId)
     {
-        $user = User::find($userId);
+        $user = Users::get($userId);
 
-        $roleIds = DB::table("model_has_roles")->where("model_id",$user->id)
-            ->pluck('role_id')
-            ->all();
+        $roleIds = Users::getRolesId($userId);
 
         $roleNames = $user->getRoleNames()->toArray();
 
@@ -73,9 +68,7 @@ class Index extends Component
         //Log::notice('---UPDATE SELECTED Permission---');
         //Log::debug('selected = ' . implode(',',$selected));
 
-        $this->selectedRoles = DB::table("roles")->whereIn("id",$selected)
-        ->pluck('name')
-        ->all();
+        $this->selectedRoles = Users::getSelectedRolesName($selected);
 
         //Log::debug('selectedPermissions = ' . implode(',',$this->selectedPermissions));
 
@@ -88,12 +81,12 @@ class Index extends Component
         $this->showEdit = $this->showDelete = false;
         $this->sortField = 'name';
         $this->sortDirection = 'asc';
-        $this->roles = DB::table('roles')->where('name','<>','Super Admin')->orderBy('name','asc')->get();
+        $this->roles = Users::getRolesList();
     }
 
     public function render()
     {
-        $users = User::orderBy($this->sortField,$this->sortDirection)->get();
+        $users = Users::list($this->sortField,$this->sortDirection);
         return view('livewire.users.index',['users'=>$users]);
     }
 
@@ -163,18 +156,19 @@ class Index extends Component
 
         if($this->itemUser['id']==0) {
 
-            $user = User::create([
+            $data = array(
                 'name' => $this->itemUser['name'],
                 'email' => $this->itemUser['email'],
                 'password' => Hash::make($this->itemUser['password']),
-            ]);
+            );
+            $user = Users::create($data);
 
             $message = "Добавлен пользователь: " . $this->itemUser['name'];
 
         }else{
 
-            $user = User::find($this->itemUser['id']);
-            $user->update(['name'=>$this->itemUser['name']]);
+            $data = array('name'=>$this->itemUser['name']);
+            $user = Users::update($this->itemUser['id'],$data);
 
             $message = "Пользователь: " . $this->itemUser['name'] . " сохранен.";
         }
@@ -202,8 +196,7 @@ class Index extends Component
     public function destroy($userId)
     {
 
-        $user = User::findOrFail($userId);
-        $user->delete();
+        Users::delete($userId);
 
         $message = "Пользователь: " . $this->itemUser['name'] . " удален.";
 
