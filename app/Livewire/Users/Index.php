@@ -88,7 +88,7 @@ class Index extends Component
         $this->showEdit = $this->showDelete = false;
         $this->sortField = 'name';
         $this->sortDirection = 'asc';
-        $this->roles = DB::table('roles')->orderBy('name','asc')->get();
+        $this->roles = DB::table('roles')->where('name','<>','Super Admin')->orderBy('name','asc')->get();
     }
 
     public function render()

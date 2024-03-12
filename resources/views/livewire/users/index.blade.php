@@ -42,10 +42,12 @@
                             <x-table.cell>
                                 <div class="flex items-center">
                                     @can('user.edit')
+                                        @if (!in_array('Super Admin',$user->getRoleNames()->toArray()))
                                         <x-link.icon-edit wire:click="openEdit({{ $user->id }})" title="{{ __('Edit') }}"/>
+                                        @endif
                                     @endcan
                                     @can('user.delete')
-                                        @if ($user->id != Auth::id())
+                                        @if ($user->id != Auth::id() && !in_array('Super Admin',$user->getRoleNames()->toArray()))
                                         <x-button.icon-del wire:click="openDelete({{ $user->id }})" title="{{ __('Delete') }}" />
                                         @endif
                                     @endcan
